@@ -1,0 +1,30 @@
+{
+  "name": "number-format",
+  "version": "1.0.0",
+  "description": "Format numbers and number string",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marchintosh94/numberformat.git"
+  },
+  "keywords": [
+    "number",
+    "format",
+    "currency",
+    "currency-formatting"
+  ],
+  "author": "marchintosh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marchintosh94/numberformat/issues"
+  },
+  "homepage": "https://github.com/marchintosh94/numberformat#readme",
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "typescript": "^4.6.3"
+  }
+}
