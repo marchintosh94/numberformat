@@ -1,27 +1,31 @@
 export interface NumberFormatOptions {
   delimitersChar: { decimal: string; thousands: string};
   defaultDecimals: number | undefined;
-  currecySymbol?: string;
+  defaultCurrecySymbol?: string;
 }
-let decimalSeparator = ','
-let thousandsSeparator = '.'
-let defaultNumberOfDecimals = 2
-let defaultCurrecySymbol = ''
+
 let value: string | undefined
+
+const _initConfig: NumberFormatOptions = {
+  defaultDecimals: 2,
+  delimitersChar: {
+    decimal: ',',
+    thousands: '.'
+  },
+  defaultCurrecySymbol: ''
+}
+let _config: NumberFormatOptions = {..._initConfig}
 
 /**
  * Init number format options
- * @param initOption NumberFormatOptions
+ * @param config NumberFormatOptions
  */
-export const initNumberFormat = ({
-  delimitersChar: {decimal, thousands},
-  defaultDecimals,
-  currecySymbol
-}: NumberFormatOptions) => {
-  decimalSeparator = decimal
-  thousandsSeparator = thousands
-  defaultNumberOfDecimals = defaultDecimals !== undefined? defaultDecimals : 2
-  defaultCurrecySymbol = currecySymbol || ''
+export const initNumberFormat = (config: NumberFormatOptions) => {
+  _config = {
+    ...config,
+    defaultDecimals: config.defaultDecimals ?? 2,
+    defaultCurrecySymbol: config.defaultCurrecySymbol ?? ''
+  }
 }
 
 /**
@@ -32,34 +36,23 @@ export const initNumberFormat = ({
  * useNumberFormat('100').formatCurrency()
  */
 export const useNumberFormat = (number?: string | number) => {
-  if(number != undefined && number != null){
-    switch(typeof number){
-      case 'number':
-        value = number.toString()
-        break
-      case 'string':
-        value = number == ''? Number(undefined).toString() : Number(number.replace(',', '.')).toString()
-        break
-      default:
-        throw TypeError('Invalid number type')
-    }
-  } else {
-    value = number! as string
-  }
+  const { defaultDecimals, delimitersChar: { decimal, thousands}, defaultCurrecySymbol } = _config
 
-  /**
-   * Init number format behavior
-   * @param numberFormatOptions NumberFormatOptions
-   */
-  const init = ({
-    delimitersChar: {decimal, thousands},
-    defaultDecimals,
-    currecySymbol
-  }: NumberFormatOptions) => {
-    decimalSeparator = decimal
-    thousandsSeparator = thousands
-    defaultNumberOfDecimals = defaultDecimals !== undefined? defaultDecimals : 2
-    defaultCurrecySymbol = currecySymbol || ''
+  const setNumber = (number?: string | number) => {
+    if(number != undefined && number != null){
+      switch(typeof number){
+        case 'number':
+          value = number.toString()
+          break
+        case 'string':
+          value = number == ''? Number(undefined).toString() : Number(number.replace(',', '.')).toString()
+          break
+        default:
+          throw TypeError('Invalid number type')
+      }
+    } else {
+      value = number! as string
+    }
   }
 
   /**
@@ -69,7 +62,7 @@ export const useNumberFormat = (number?: string | number) => {
    * @param decimals number  Number of digits after the decimal point. Must be in the range 0 - 20, inclusive.
    * @returns string Number formatted as string
    */
-  const format = (decimals: number = defaultNumberOfDecimals): string => {
+  const format = (decimals: number = defaultDecimals!): string => {
     if(value == undefined){
       throw new TypeError("Number not defined on useNumberFormat decalration") 
     } 
@@ -80,22 +73,28 @@ export const useNumberFormat = (number?: string | number) => {
     const intPortion = numberSplitted.length? numberSplitted[0] : '0'
     const decimalPortion = (numberSplitted.length > 1? Number(`0.${numberSplitted[1]}`).toFixed(decimals) : Number().toFixed(decimals)).substring(2)
 
-    return `${intPortion.replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSeparator)}${decimalPortion? decimalSeparator : ''}${decimalPortion}`
+    return `${intPortion.replace(/\B(?=(\d{3})+(?!\d))/g, thousands)}${decimalPortion? decimal : ''}${decimalPortion}`
   }
 
   const formatCurrency = (decimals?: number, currecySymbol?: string): string => {
     const symbol = currecySymbol || defaultCurrecySymbol
-    return `${format(decimals || defaultNumberOfDecimals)} ${symbol}`
+    return `${format(decimals ?? defaultDecimals)} ${symbol}`
   } 
 
   const setCurrencySymbol = (char: string) => {
-    defaultCurrecySymbol = char
+    _config = {
+      ..._config,
+      defaultCurrecySymbol: char
+    }
   }
 
+  setNumber(number)
+
   return {
-    init,
     format,
     setCurrencySymbol,
-    formatCurrency
+    setNumber,
+    formatCurrency,
+    config: {..._config}
   }
 }
