@@ -1,4 +1,4 @@
-import { initNumberFormat, NumberFormatOptions, useNumberFormat } from "../numberformat"
+import { initNumberFormat, NumberFormatOptions, useNumberFormat } from "../src/numberformat"
 
 describe('useNumberFormat hook', () => {
   let format1: NumberFormatOptions

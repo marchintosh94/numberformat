@@ -5,11 +5,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist/"
+    "dist/*"
   ],
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "rm -rf dist/ && tsc --project tsconfig.build.json"
   },
   "repository": {
     "type": "git",
