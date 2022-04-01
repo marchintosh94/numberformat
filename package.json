@@ -1,5 +1,5 @@
 {
-  "name": "number-format",
+  "name": "@marchintosh94/number-format",
   "version": "1.0.0",
   "description": "Format numbers and number string",
   "main": "dist/index.js",
