@@ -1,6 +1,6 @@
 {
   "name": "@marchintosh94/number-format",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Format numbers and number string",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
