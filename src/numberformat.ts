@@ -4,7 +4,7 @@ export interface NumberFormatOptions {
   defaultCurrecySymbol?: string;
 }
 
-let value: string | undefined
+let state: string | undefined
 
 const _initConfig: NumberFormatOptions = {
   defaultDecimals: 2,
@@ -38,20 +38,20 @@ export const initNumberFormat = (config: NumberFormatOptions) => {
 export const useNumberFormat = (number?: string | number) => {
   const { defaultDecimals, delimitersChar: { decimal, thousands}, defaultCurrecySymbol } = _config
 
-  const setNumber = (number?: string | number) => {
-    if(number != undefined && number != null){
-      switch(typeof number){
+  const setNumber = (value?: string | number) => {
+    if(value != undefined && value != null){
+      switch(typeof value){
         case 'number':
-          value = number.toString()
+          state = value.toString()
           break
         case 'string':
-          value = number == ''? Number(undefined).toString() : Number(number.replace(',', '.')).toString()
+          state = value == ''? Number(undefined).toString() : Number(value.replace(',', '.')).toString()
           break
         default:
           throw TypeError('Invalid number type')
       }
     } else {
-      value = number! as string
+      state = value! as string
     }
   }
 
@@ -63,13 +63,13 @@ export const useNumberFormat = (number?: string | number) => {
    * @returns string Number formatted as string
    */
   const format = (decimals: number = defaultDecimals!): string => {
-    if(value == undefined){
+    if(state == undefined){
       throw new TypeError("Number not defined on useNumberFormat decalration") 
     } 
-    if(isNaN(Number(value)) || value == ''){
+    if(isNaN(Number(state)) || state == ''){
       throw new TypeError("Number defined on useNumberFormat decalration is not valid number") 
     }
-    const numberSplitted = value.toString().split('.')
+    const numberSplitted = state.toString().split('.')
     const intPortion = numberSplitted.length? numberSplitted[0] : '0'
     const decimalPortion = (numberSplitted.length > 1? Number(`0.${numberSplitted[1]}`).toFixed(decimals) : Number().toFixed(decimals)).substring(2)
 
