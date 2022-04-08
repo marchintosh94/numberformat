@@ -7,19 +7,21 @@ describe('useNumberFormat hook', () => {
   beforeEach(() => {
     format1 = {
       defaultDecimals: 2,
+      defaultErrorValue: 0,
       delimitersChar: {
         decimal: ',',
         thousands: '.'
       },
-      defaultCurrecySymbol: '€'
+      defaultCurrecySymbol: {sign: '€', code: 'EUR'}
     }
     format2 = {
       defaultDecimals: 3,
+      defaultErrorValue: 0,
       delimitersChar: {
         decimal: '.',
         thousands: ','
       },
-      defaultCurrecySymbol: '$'
+      defaultCurrecySymbol: {sign: '$', code: 'USD'}
     }
   })
 
@@ -33,7 +35,7 @@ describe('useNumberFormat hook', () => {
 
     config.delimitersChar.decimal = ''
     config.delimitersChar.thousands = ''
-    config.defaultCurrecySymbol = ''
+    config.defaultCurrecySymbol = {sign: '', code: ''}
     config.defaultDecimals = 456
 
     setNumber(10)
@@ -42,7 +44,8 @@ describe('useNumberFormat hook', () => {
     const { config: conf } = useNumberFormat()
     expect(conf.delimitersChar.decimal).toEqual(format1.delimitersChar.decimal)
     expect(conf.delimitersChar.thousands).toEqual(format1.delimitersChar.thousands)
-    expect(conf.defaultCurrecySymbol).toEqual(format1.defaultCurrecySymbol)
+    expect(conf.defaultCurrecySymbol?.code).toEqual(format1.defaultCurrecySymbol?.code)
+    expect(conf.defaultCurrecySymbol?.sign).toEqual(format1.defaultCurrecySymbol?.sign)
     expect(conf.defaultDecimals).toEqual(format1.defaultDecimals)
   })
 
@@ -81,11 +84,11 @@ describe('useNumberFormat hook', () => {
     const nan2 = ''
     const undef = undefined
     initNumberFormat(format2)
-    expect(useNumberFormat(nan).format).toThrow(TypeError)
-    expect(useNumberFormat(nan).format).toThrow('Number defined on useNumberFormat decalration is not valid number')
+    expect(useNumberFormat(nan).format()).toEqual('0')
+    expect(useNumberFormat(nan).format()).toEqual('0')
 
-    expect(useNumberFormat(nan2).format).toThrow('Number defined on useNumberFormat decalration is not valid number')
-    expect(useNumberFormat(undef).format).toThrow('Number not defined on useNumberFormat decalration')
+    expect(useNumberFormat(nan2).format()).toEqual('0')
+    expect(useNumberFormat(undef).format()).toEqual('0')
   })
 
   it('format currency => €', () => {

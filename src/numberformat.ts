@@ -70,11 +70,11 @@ export const useNumberFormat = (number?: string | number) => {
   const format = (decimals: number = defaultDecimals!): string => {
     if(state == undefined){
       console.error("Number not defined on useNumberFormat decalration", `value to be formatted: ${state}`)
-      return (defaultErrorValue ?? 0).toString()
+      return (defaultErrorValue || 0).toString()
     } 
     if(isNaN(Number(state)) || state == ''){
       console.error("Number defined on useNumberFormat decalration is not valid number.", `value to be formatted: ${state}`) 
-      return (defaultErrorValue ?? 0).toString()
+      return (defaultErrorValue || 0).toString()
     }
     const numberSplitted = state.toString().split('.')
     const intPortion = numberSplitted.length? numberSplitted[0] : '0'
@@ -84,7 +84,7 @@ export const useNumberFormat = (number?: string | number) => {
   }
 
   const formatCurrency = (decimals?: number, currecySymbol?: string): string => {
-    const symbol = currecySymbol || defaultCurrecySymbol
+    const symbol = currecySymbol || defaultCurrecySymbol?.sign || ''
     return `${format(decimals ?? defaultDecimals)} ${symbol}`
   } 
 
