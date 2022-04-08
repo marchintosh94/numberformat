@@ -1,18 +1,23 @@
 export interface NumberFormatOptions {
   delimitersChar: { decimal: string; thousands: string};
   defaultDecimals: number | undefined;
-  defaultCurrecySymbol?: string;
+  defaultErrorValue: number | undefined,
+  defaultCurrecySymbol?: {code: string; sign: string};
 }
 
 let state: string | undefined
 
 const _initConfig: NumberFormatOptions = {
   defaultDecimals: 2,
+  defaultErrorValue: 0,
   delimitersChar: {
     decimal: ',',
     thousands: '.'
   },
-  defaultCurrecySymbol: ''
+  defaultCurrecySymbol: {
+    code: '',
+    sign: ''
+  }
 }
 let _config: NumberFormatOptions = {..._initConfig}
 
@@ -24,7 +29,7 @@ export const initNumberFormat = (config: NumberFormatOptions) => {
   _config = {
     ...config,
     defaultDecimals: config.defaultDecimals ?? 2,
-    defaultCurrecySymbol: config.defaultCurrecySymbol ?? ''
+    defaultCurrecySymbol: config.defaultCurrecySymbol ?? _initConfig.defaultCurrecySymbol
   }
 }
 
@@ -36,7 +41,7 @@ export const initNumberFormat = (config: NumberFormatOptions) => {
  * useNumberFormat('100').formatCurrency()
  */
 export const useNumberFormat = (number?: string | number) => {
-  const { defaultDecimals, delimitersChar: { decimal, thousands}, defaultCurrecySymbol } = _config
+  const { defaultDecimals, delimitersChar: { decimal, thousands}, defaultCurrecySymbol, defaultErrorValue } = _config
 
   const setNumber = (value?: string | number) => {
     if(value != undefined && value != null){
@@ -64,10 +69,12 @@ export const useNumberFormat = (number?: string | number) => {
    */
   const format = (decimals: number = defaultDecimals!): string => {
     if(state == undefined){
-      throw new TypeError("Number not defined on useNumberFormat decalration") 
+      console.error("Number not defined on useNumberFormat decalration", `value to be formatted: ${state}`)
+      return (defaultErrorValue ?? 0).toString()
     } 
     if(isNaN(Number(state)) || state == ''){
-      throw new TypeError("Number defined on useNumberFormat decalration is not valid number") 
+      console.error("Number defined on useNumberFormat decalration is not valid number.", `value to be formatted: ${state}`) 
+      return (defaultErrorValue ?? 0).toString()
     }
     const numberSplitted = state.toString().split('.')
     const intPortion = numberSplitted.length? numberSplitted[0] : '0'
@@ -81,10 +88,10 @@ export const useNumberFormat = (number?: string | number) => {
     return `${format(decimals ?? defaultDecimals)} ${symbol}`
   } 
 
-  const setCurrencySymbol = (char: string) => {
+  const setCurrencySymbol = (sign: string, code: string) => {
     _config = {
       ..._config,
-      defaultCurrecySymbol: char
+      defaultCurrecySymbol: {sign, code}
     }
   }
 
