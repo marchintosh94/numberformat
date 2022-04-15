@@ -80,7 +80,7 @@ export const useNumberFormat = (number?: string | number) => {
     const intPortion = numberSplitted.length? numberSplitted[0] : '0'
     const decimalPortion = (numberSplitted.length > 1? Number(`0.${numberSplitted[1]}`).toFixed(decimals) : Number().toFixed(decimals)).substring(2)
 
-    return `${intPortion.replace(/\B(?=(\d{3}){0,20}(?!\d))/g, thousands)}${decimalPortion? decimal : ''}${decimalPortion}`
+    return `${intPortion.replace(/\B(?!-)(?=(\d{3}){0,20}(?!\d))/g, thousands)}${decimalPortion? decimal : ''}${decimalPortion}`
   }
 
   const formatCurrency = (decimals?: number, currecySymbol?: string): string => {

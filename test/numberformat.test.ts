@@ -54,6 +54,10 @@ describe('useNumberFormat hook', () => {
     const number2 = '29944.12297946'
     const number3 = '29944'
     const number4 = 0.95
+    const number5 = -0.95
+    const number6 = -.95
+    const number7 = .9522
+    
     initNumberFormat(format1)
     expect(useNumberFormat(number).format()).toEqual('123.456.789,46')
     expect(useNumberFormat(number).format(10)).toEqual('123.456.789,4568887400')
@@ -66,6 +70,10 @@ describe('useNumberFormat hook', () => {
     expect(useNumberFormat(number4).format(0)).toEqual('0')
     expect(useNumberFormat(number4).format(1)).toEqual('0,9')
     expect(useNumberFormat(number4).format(3)).toEqual('0,950')
+    expect(useNumberFormat(number5).format(3)).toEqual('-0,950')
+
+    expect(useNumberFormat(number6).format(3)).toEqual('-0,950')
+    expect(useNumberFormat(number7).format(3)).toEqual('0,952')
   })
 
   it('format function => decimal == `.` thousands == `,`', () => {
@@ -96,6 +104,9 @@ describe('useNumberFormat hook', () => {
     const number2 = '29944.12297946'
     const number3 = '29944'
     const number4 = 0.95
+    const number5 = -0.95
+    const number6 = -.95
+    const number7 = .9522
     initNumberFormat(format1)
     expect(useNumberFormat(number).formatCurrency()).toEqual('123.456.789,46 €')
     expect(useNumberFormat(number).formatCurrency(10)).toEqual('123.456.789,4568887400 €')
@@ -108,5 +119,9 @@ describe('useNumberFormat hook', () => {
     expect(useNumberFormat(number4).formatCurrency(0)).toEqual('0 €')
     expect(useNumberFormat(number4).formatCurrency(1)).toEqual('0,9 €')
     expect(useNumberFormat(number4).formatCurrency(3)).toEqual('0,950 €')
+    expect(useNumberFormat(number5).formatCurrency(3)).toEqual('-0,950 €')
+    
+    expect(useNumberFormat(number6).formatCurrency(3)).toEqual('-0,950 €')
+    expect(useNumberFormat(number7).formatCurrency(3)).toEqual('0,952 €')
   })
 })
