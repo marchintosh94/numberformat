@@ -1,11 +1,8 @@
 ---
 description: The easy way to format number in your Typescript and Javascript applications.
-cover: >-
-  https://images.unsplash.com/photo-1635545195955-e65d68631341?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxOTcwMjR8MHwxfHNlYXJjaHw3fHxnZW9tZXRyeXxlbnwwfHx8fDE2NTA0MTEzOTg&ixlib=rb-1.2.1&q=85
-coverY: 0
 ---
 
-# Number format
+# number format
 
 With this library you can configure a centralised number formatter for your application as well as configure at runtime custom number format or currency.
 
