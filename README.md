@@ -1,7 +1,5 @@
 ---
 description: The easy way to format number in your Typescript and Javascript applications.
-cover: .gitbook/assets/numberformat-logo.png
-coverY: 0
 ---
 
 # number format
