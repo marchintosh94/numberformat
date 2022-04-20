@@ -62,9 +62,13 @@ export const useNumberFormat = (number?: string | number) => {
 
   /**
    * Return number formatted as string with specified number of decimals.
-   * It use as decimals separator the value (or default value) defined in @param delimitersChar.decimals
-   * It use as thousands separator the value (or default value) defined in @param delimitersChar.thousands
+   * 
+   * @remarks
+   * It use as decimals separator the value (or default value) defined in {@link delimitersChar.decimals}
+   * It use as thousands separator the value (or default value) defined in {@link delimitersChar.thousands}
+   * 
    * @param decimals number  Number of digits after the decimal point. Must be in the range 0 - 20, inclusive.
+   * 
    * @returns string Number formatted as string
    */
   const format = (decimals: number = defaultDecimals!): string => {
