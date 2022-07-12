@@ -1,8 +1,6 @@
----
-description: The easy way to format number in your Typescript and Javascript applications.
----
+# Introduction
 
-# Number format
+The easy way to format number in your Typescript and Javascript applications.
 
 With this library you can configure a centralised number formatter for your application as well as configure at runtime custom number format or currency.
 

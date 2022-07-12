@@ -1,7 +1,9 @@
 # Table of contents
 
-* [Number format](README.md)
-  * [Get Started](readme/get-started.md)
+## 🔟 Number format
+
+* [Introduction](README.md)
+* [Get Started](number-format/get-started.md)
 
 ## 🐝 API
 
