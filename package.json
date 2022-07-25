@@ -1,6 +1,6 @@
 {
   "name": "@marchintosh94/number-format",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Format numbers and number string",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,7 +20,11 @@
     "number",
     "format",
     "currency",
-    "currency-formatting"
+    "currency-formatting",
+    "react format number",
+    "angular format number",
+    "vue format number",
+    "js format number"
   ],
   "author": "marchintosh",
   "license": "MIT",

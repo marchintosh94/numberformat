@@ -50,7 +50,7 @@ export const useNumberFormat = (number?: string | number) => {
           state = value.toString()
           break
         case 'string':
-          state = value == ''? Number(undefined).toString() : Number(value.replace(',', '.')).toString()
+          state = value == ''? Number(undefined).toString() : value.replace(',', '.')
           break
         default:
           throw TypeError('Invalid number type')
