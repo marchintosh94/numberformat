@@ -1,10 +1,6 @@
----
-description: Hook to format numbers
----
-
 # useNumberFormat
 
-This hook contains and returns all methods  and properties to be used  to get formatted number. It accepts a value as param, that will be used as number to be formatted. The param could be a string, a number or undefined.
+This hook contains and returns all methods and properties to be used  to get formatted number. It accepts a value as param, that will be used as number to be formatted. The param could be a string, a number or undefined.
 
 #### Example:
 

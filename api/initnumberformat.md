@@ -1,10 +1,6 @@
----
-description: Initialize globally number format options
----
-
 # initNumberFormat
 
-
+Initialize globally number format options
 
 ```typescript
 import { initNumberFormat, NumberFormatOptions } from "@marchintosh94/number-format"
