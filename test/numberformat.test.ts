@@ -124,4 +124,25 @@ describe('useNumberFormat hook', () => {
     expect(useNumberFormat(number6).formatCurrency(3)).toEqual('-0,950 €')
     expect(useNumberFormat(number7).formatCurrency(3)).toEqual('0,952 €')
   })
+
+  
+  it('small numbers', () => {
+    const number = '0.00000001'
+    const number2 = '0.0000000001'
+    const number3 = '0.2547878787'
+
+    const number4 = '0.00000001'
+    const number5 = '0.0000000001'
+    const number6 = '0.2547878787'
+
+    
+    initNumberFormat(format1)
+    expect(useNumberFormat(number).format(8)).toEqual('0,00000001')
+    expect(useNumberFormat(number2).format(10)).toEqual('0,0000000001')
+    expect(useNumberFormat(number3).format(10)).toEqual('0,2547878787')
+
+    expect(useNumberFormat(number4).format(8)).toEqual('0,00000001')
+    expect(useNumberFormat(number5).format(10)).toEqual('0,0000000001')
+    expect(useNumberFormat(number6).format(10)).toEqual('0,2547878787')
+  })
 })
