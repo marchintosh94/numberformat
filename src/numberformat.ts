@@ -47,7 +47,13 @@ export const useNumberFormat = (number?: string | number) => {
     if(value != undefined && value != null){
       switch(typeof value){
         case 'number':
-          state = value.toString()
+          if (value.toString().toLowerCase().includes('e')) {
+            const [_, decimals] = value.toString().toLowerCase().split('e')
+            const decimalNumber = Number(decimals.replace(/[+-]/, ''))
+            state = value.toFixed(decimalNumber)
+          } else {
+            state = value.toString()
+          }
           break
         case 'string':
           state = value == ''? Number(undefined).toString() : value.replace(',', '.')
