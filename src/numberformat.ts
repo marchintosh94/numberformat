@@ -1,5 +1,3 @@
-import { join } from "path";
-
 export interface NumberFormatOptions {
   delimitersChar: { decimal: string; thousands: string};
   defaultDecimals: number | undefined;
