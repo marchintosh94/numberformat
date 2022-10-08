@@ -1,3 +1,5 @@
+import { join } from "path";
+
 export interface NumberFormatOptions {
   delimitersChar: { decimal: string; thousands: string};
   defaultDecimals: number | undefined;
@@ -48,9 +50,15 @@ export const useNumberFormat = (number?: string | number) => {
       switch(typeof value){
         case 'number':
           if (value.toString().toLowerCase().includes('e')) {
-            const [_, decimals] = value.toString().toLowerCase().split('e')
-            const decimalNumber = Number(decimals.replace(/[+-]/, ''))
-            state = value.toFixed(decimalNumber)
+            const [int, pow] = value.toString().toLowerCase().split('e')
+            const powNumber = Number(pow)
+            if (powNumber > 0){
+              const [integerPart1, decimalPart] = int.split('.')
+              const integerPart2 = Array.from(Array(powNumber - (decimalPart?.length || 0))).map(() => 0).join('')
+              state = `${integerPart1}${integerPart2}`
+            } else {
+              state = value.toFixed(Math.abs(powNumber))
+            }
           } else {
             state = value.toString()
           }

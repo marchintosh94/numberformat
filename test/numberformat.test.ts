@@ -153,12 +153,14 @@ describe('useNumberFormat hook', () => {
     const number = '0.00000001'
     const number2 = '0.0000000001'
     const number3 = 0.00000000000000000000002
+    const number4 = 2000000000000000000000000
 
     
     initNumberFormat(format1)
     expect(useNumberFormat(Number(number)).format(8)).toEqual('0,00000001')
     expect(useNumberFormat(Number(number2)).format(10)).toEqual('0,0000000001')
     expect(useNumberFormat(Number(number3)).format(23)).toEqual('0,00000000000000000000002')
+    expect(useNumberFormat(Number(number4)).format(2)).toEqual('2.000.000.000.000.000.000.000.000,00')
     
   })
 })
